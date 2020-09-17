@@ -168,7 +168,7 @@ public class mapa {
     */
     public double distanciaMasCortaEntreCiudades(String[] puntos) {
         this.distancia = 0; //RESETEAMOS EL VALOR DE distancia
-        this.distanciaMasCortaEntreCiudades(puntos, 0);
+        this.distanciaMasCortaEntreCiudades(puntos, 0, "");
         return this.distancia;
     }
     /**
@@ -177,7 +177,7 @@ public class mapa {
      * @param puntos
      * @param distanciaInicial 
     */
-    public void distanciaMasCortaEntreCiudades(String[] puntos, double distanciaInicial) {
+    public void distanciaMasCortaEntreCiudades(String[] puntos, double distanciaInicial, String ultimoOrigen) {
         double distanciaTmp = 0;
         //VARIABLES
         if(puntos.length != 2) {
@@ -198,10 +198,10 @@ public class mapa {
                     }else{
                         distanciaTmp = this.distancia;
                     }
-                //Control de Bucle de CD DC CD DC manual.......
-                } else if( !valRuta.origen.nombre.equals("D") || !valRuta.destino.nombre.equals("C") ){
+                //Control mediante el último orgien, para evitar retrocesos
+                } else if( !ultimoOrigen.equals(valRuta.destino.nombre) ){
                     String[] newDatos = {valRuta.destino.nombre,destino};
-                    this.distanciaMasCortaEntreCiudades(newDatos,distanciaTmp);
+                    this.distanciaMasCortaEntreCiudades(newDatos,distanciaTmp,valRuta.origen.nombre);
                 }
             }            
         }else {
